@@ -27,7 +27,7 @@ class WordCountAndTimePlugin {
     // the Location setting
     add_settings_field( 'wcp_location', 'Display Location', array( $this, 'location_html' ), 'word-count-settings-page', 'wcp_first_section' );
     register_setting('word_count_plugin', 'wcp_location', array( 
-      'sanitize_callback' => 'sanitize_text_field', 
+      'sanitize_callback' => array($this, 'sanitize_location'), 
       'default' => '0',
       ));
 
@@ -59,6 +59,17 @@ class WordCountAndTimePlugin {
       'default' => '1',
       ));
 
+  }
+
+  // Custom sanitizing function
+
+  function sanitize_location($input) {
+    if ($input !='0' AND $input !='1') {
+      $error_msg = 'Display location must be either beginning or end.';
+      add_settings_error('wcp_location', 'wcp_location_error', $error_msg);
+      return get_option('wcp_location');
+    }
+    return $input;
   }
 
   // Location form field HTML
