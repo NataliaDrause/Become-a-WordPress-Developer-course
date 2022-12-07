@@ -61,8 +61,7 @@ class WordCountAndTimePlugin {
 
   }
 
-  // Custom sanitizing function
-
+  // Custom sanitizing function for Location field.
   function sanitize_location($input) {
     if ($input !='0' AND $input !='1') {
       $error_msg = 'Display location must be either beginning or end.';
