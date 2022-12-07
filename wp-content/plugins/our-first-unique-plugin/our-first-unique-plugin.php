@@ -8,11 +8,23 @@
   Author URI: https://nataliadrause.com
 */
 
-add_filter('the_content', 'add_to_end_of_post');
-
-function add_to_end_of_post( $content ) {
-  if ( is_single() && is_main_query() ) {
-    return $content . '<p>My name is Natalia</p>';
+class WordCountAndTimePlugin {
+  function __construct() {
+    add_action( 'admin_menu', array( $this, 'admin_page' ) );
   }
-  return $content;
+
+  function admin_page() {
+    add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', array ( $this, 'our_html') );
+  }
+  
+  function our_html() { ?>
+    <div class="wrap">
+      <h1>Word Count Settings</h1>
+    </div>
+  <?php }
 }
+
+$wordCountAndTimePlugin = new WordCountAndTimePlugin();
+
+
+
