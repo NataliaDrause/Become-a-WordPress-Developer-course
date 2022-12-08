@@ -11,17 +11,64 @@
 class WordCountAndTimePlugin {
   function __construct() {
 
-    // add menu link to admin sidebar and settings page
+    // Add menu link to admin sidebar and settings page.
     add_action( 'admin_menu', array( $this, 'admin_page' ) );
 
-    // add database options for settings
-    add_action('admin_init', array ( $this, 'settings' ) );
+    // Add database options for settings.
+    add_action( 'admin_init', array( $this, 'settings' ) );
+
+    // Add the Word Count to posts.
+    add_filter( 'the_content', array( $this, 'if_wrap' ) );
   }
 
-  // add database options for settings
+  /* METHODS */
+
+  // Filter content to add Word Count and check if options are checked.
+  function if_wrap($content) {
+    if (is_main_query() AND is_single() AND 
+    (
+      get_option('wcp_wordcount', '1') OR 
+      get_option('wcp_charcount', '1') OR 
+      get_option('wcp_readtime', '1') 
+    )) {
+      return $this->create_html($content);
+    }
+    return $content;
+  }
+  // Add HTML of the plugin on frontend.
+  function create_html($content) {
+    $html = '<h3>' . esc_html(get_option('wcp_headline', 'Post Statistics')) . '</h3><p>';
+
+    // get word count
+    if (get_option('wcp_wordcount', '1') OR get_option('wcp_readtime', '1')) {
+      $word_count = str_word_count(strip_tags($content));
+    }
+
+    if (get_option('wcp_wordcount', '1')) {
+      $html .= 'This post has ' . $word_count . ' words.<br>';
+    }
+
+    if (get_option('wcp_charcount', '1')) {
+      $html .= 'This post has ' . strlen(strip_tags($content)) . ' characters.<br>';
+    }
+
+    if (get_option('wcp_readtime', '1')) {
+      $html .= 'This post will take about ' . round($word_count/225) . ' minute(s) to read.<br>';
+    }
+
+    $html .= '</p>';
+
+    if (get_option('wcp_location', '0') == '0') {
+      return $html . $content;
+    }
+    return $content . $html;
+    
+  }
+
+  // add database options for settings.
   function settings() {
 
-    // add settings page section
+    // add settings page section.
     add_settings_section( 'wcp_first_section', null, null, 'word-count-settings-page' );
 
     // the Location setting
