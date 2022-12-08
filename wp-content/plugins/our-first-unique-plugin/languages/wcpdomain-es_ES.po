@@ -1,0 +1,44 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Our Test Plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-12-08 01:36+0000\n"
+"PO-Revision-Date: 2022-12-08 01:39+0000\n"
+"Last-Translator: Natalia\n"
+"Language-Team: Spanish (Spain)\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.3; wp-6.1.1\n"
+"X-Domain: wcpdomain"
+
+#. Description of the plugin
+msgid "A trully amazing plugin."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://nataliadrause.com"
+msgstr ""
+
+#. Author of the plugin
+msgid "Natalia"
+msgstr ""
+
+#. Name of the plugin
+msgid "Our Test Plugin"
+msgstr ""
+
+#: our-first-unique-plugin.php:58
+msgid "This post has"
+msgstr "Esta publicación tiene"
+
+#: our-first-unique-plugin.php:168
+msgid "Word Count"
+msgstr "El recuento de palabras"
+
+#: our-first-unique-plugin.php:58
+msgid "words"
+msgstr "palabras"

@@ -6,6 +6,8 @@
   Version: 1.0
   Author: Natalia
   Author URI: https://nataliadrause.com
+  Text Domain: wcpdomain
+  Domain Path: /languages
 */
 
 class WordCountAndTimePlugin {
@@ -19,9 +21,17 @@ class WordCountAndTimePlugin {
 
     // Add the Word Count to posts.
     add_filter( 'the_content', array( $this, 'if_wrap' ) );
+
+    // Call the translations.
+    add_action('init', array($this, 'languages'));
   }
 
   /* METHODS */
+
+  // Call the translations.
+  function languages() {
+    load_plugin_textdomain('wcpdomain', false, dirname(plugin_basename(__FILE__)) . '/languages');
+  }
 
   // Filter content to add Word Count and check if options are checked.
   function if_wrap($content) {
@@ -45,7 +55,7 @@ class WordCountAndTimePlugin {
     }
 
     if (get_option('wcp_wordcount', '1')) {
-      $html .= 'This post has ' . $word_count . ' words.<br>';
+      $html .= esc_html__('This post has', 'wcpdomain') . ' ' . $word_count . ' ' . __('words', 'wcpdomain') . '.<br>';
     }
 
     if (get_option('wcp_charcount', '1')) {
@@ -155,7 +165,7 @@ class WordCountAndTimePlugin {
 
   // add menu link to admin sidebar and settings page
   function admin_page() {
-    add_options_page('Word Count Settings', 'Word Count', 'manage_options', 'word-count-settings-page', array ( $this, 'our_html') );
+    add_options_page('Word Count Settings', __('Word Count', 'wcpdomain'), 'manage_options', 'word-count-settings-page', array ( $this, 'our_html') );
   }
   
   function our_html() { ?>

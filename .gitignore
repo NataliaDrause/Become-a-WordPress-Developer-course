@@ -15,6 +15,8 @@ wp-content/plugins/members
 wp-content/plugins/osm
 wp-content/plugins/regenerate-thumbnails
 wp-content/plugins/wp-migrate-db
+wp-content/plugins/loco-translate
 wp-content/upgrade
 wp-content/uploads
+wp-content/languages
 *.log
