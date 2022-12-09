@@ -15,7 +15,31 @@ class OurWordFilterPlugin {
   function __construct() {
     // Register menu option and add settings page.
     add_action('admin_menu', array($this, 'our_menu'));
-    
+    // Add settings form to the settings suppage.
+    add_action('admin_init', array($this, 'our_settings'));
+    // Filter the words in the content.
+    if (get_option('plugin_words_to_filter')) add_filter('the_content', array($this, 'filter_logic'));
+  }
+
+  // Add settings form to the settings suppage.
+  function our_settings() {
+    add_settings_section('replacement-text-section', null, null, 'word-filter-options');
+    register_setting('replacement_fields', 'replacement_text');
+    add_settings_field('replacement-text', 'Filtered Text', array($this, 'replacement_field_html'), 'word-filter-options', 'replacement-text-section');
+  }
+
+  // Add form to submit custom replacement.
+  function replacement_field_html() { ?>
+    <input type="text" name="replacement_text" value="<?php echo esc_attr(get_option('replacement_text', '***')) ?>">
+    <p class="description">Leave blank to simply remove the filtered words.</p>
+
+  <?php }
+
+  // Function to remove bad words from content.
+  function filter_logic($content) {
+    $bad_words = explode(',', get_option('plugin_words_to_filter'));
+    $bad_words_trimmed = array_map('trim', $bad_words);
+    return str_ireplace($bad_words_trimmed, esc_html(get_option('replacement_text', '***')), $content);
   }
 
   // Register menu options.
@@ -65,7 +89,17 @@ class OurWordFilterPlugin {
 
   // HTML for settings subpage.
   function options_subpage() { ?>
-    Hello world from the options page
+    <div class="wrap">
+      <h1>Word Filter Options</h1>
+      <form action="options.php" method="POST">
+        <?php
+          settings_errors();
+          settings_fields('replacement_fields');
+          do_settings_sections('word-filter-options');
+          submit_button();
+        ?>
+      </form>
+    </div>
   <?php }
 
 }
