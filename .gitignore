@@ -2,7 +2,6 @@ node_modules/
 wp-admin/
 wp-includes/
 .htaccess
-index.php
 license.txt
 readme.html
 wp-config.php
