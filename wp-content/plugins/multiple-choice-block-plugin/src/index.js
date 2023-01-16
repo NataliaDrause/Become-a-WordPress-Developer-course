@@ -3,9 +3,19 @@ wp.blocks.registerBlockType("ourplugin/multiple-choice-block", {
   icon: "smiley",
   category: "common",
   edit: function () {
-    return wp.element.createElement("h3", null, "Hello, this is from the admin editor screen")
+    return (
+      <div>
+        <p>Hello, this is a paragraph.</p>
+        <h4>Hi there.</h4>
+      </div>
+    )
   },
   save: function () {
-    return wp.element.createElement("h1", null, "This is the frontend")
+    return (
+      <>
+        <h3>My title</h3>
+        <p>my paragraph</p>
+      </>
+    )
   }
 });
