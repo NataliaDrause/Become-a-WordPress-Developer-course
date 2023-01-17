@@ -2,20 +2,25 @@ wp.blocks.registerBlockType("ourplugin/multiple-choice-block", {
   title: "Multiple Choice Block",
   icon: "smiley",
   category: "common",
-  edit: function () {
+  attributes: {
+    skyColor: {type: "string"},
+    grassColor: {type: "string"}
+  },
+  edit: function (props) {
+    function updateSkyColor(event) {
+      props.setAttributes({skyColor: event.target.value})
+    }
+    function updateGrassColor(event) {
+      props.setAttributes({grassColor: event.target.value})
+    }
     return (
       <div>
-        <p>Hello, this is a paragraph.</p>
-        <h4>Hi there.</h4>
+        <input type="text" placeholder="sky color" value={props.attributes.skyColor} onChange={updateSkyColor} />
+        <input type="text" placeholder="grass color" value={props.attributes.grassColor} onChange={updateGrassColor} />
       </div>
     )
   },
-  save: function () {
-    return (
-      <>
-        <h3>My title</h3>
-        <p>my paragraph</p>
-      </>
-    )
-  }
+  save: function (props) {
+    return null
+  },
 });
