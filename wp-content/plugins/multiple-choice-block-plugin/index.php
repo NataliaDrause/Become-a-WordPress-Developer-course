@@ -28,8 +28,12 @@ class MultipleChoiceBlock {
   }
 
   function the_html($attributes) {
+    if (!is_admin()) {
+      wp_enqueue_script('attentionFrontent', plugin_dir_url(__FILE__) . 'build/frontend.js', array('wp-element'), '1.0', true);
+      wp_enqueue_style('attentionFrontentStyles', plugin_dir_url(__FILE__) . 'build/frontend.css');
+    }
     ob_start(); ?>
-    <h3>Today the sky is <?php echo esc_html($attributes['skyColor']) ?> and the grass is <?php echo esc_html($attributes['grassColor']) ?>.</h3>
+      <div class="paying-attention-update-me"><pre style="display: none"><?php echo wp_json_encode($attributes) ?></pre></div>
     <?php return ob_get_clean();
   }
 }
