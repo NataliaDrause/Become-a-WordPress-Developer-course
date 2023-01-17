@@ -18,9 +18,11 @@ class MultipleChoiceBlock {
   }
 
   function admin_assets() {
-    wp_register_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks', 'wp-element'));
+    wp_register_script('ournewblocktype', plugin_dir_url(__FILE__) . 'build/index.js', array('wp-blocks', 'wp-element', 'wp-editor'));
+    wp_register_style('quizeditcss', plugin_dir_url(__FILE__) . 'build/index.css');
     register_block_type('ourplugin/multiple-choice-block', array(
       'editor_script' => 'ournewblocktype',
+      'editor_style' => 'quizeditcss',
       'render_callback' => array($this, 'the_html'),
     ));
   }
