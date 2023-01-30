@@ -5,6 +5,8 @@
   Version: 1.0
   Author: Natalia Drause
   Author URI: https://www.udemy.com/user/bradschiff/
+  Text Domain: featured-professor
+  Domain Path: /languages
 */
 
 if( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
@@ -35,6 +37,10 @@ class FeaturedProfessor {
       'editor_script' => 'featuredProfessorScript',
       'editor_style' => 'featuredProfessorStyle'
     ));
+
+    // Add translation:
+    load_plugin_textdomain('featured-professor', false, dirname(plugin_basename(__FILE__)) . '/languages');
+    wp_set_script_translations('featuredProfessorScript', 'featured-professor', plugin_dir_path(__FILE__) . '/languages');
   }
 
   function renderCallback($attributes) {
