@@ -40,7 +40,7 @@ function SaveComponent(props) {
         return "h1"
       case "medium":
         return "h2"
-      case "large":
+      case "small":
         return "h3"
     }
   }
