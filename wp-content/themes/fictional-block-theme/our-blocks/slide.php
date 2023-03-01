@@ -1,4 +1,8 @@
 <?php
+
+if (!isset($attributes['themeimage'])) {
+  $attributes['imgURL'] = get_theme_file_uri('/images/' . $attributes['themeimage']);
+}
 // Set a default picture if none is set.
 if (!isset($attributes['imgURL'])) {
   $attributes['imgURL'] = get_theme_file_uri('/images/library-hero.jpg');
