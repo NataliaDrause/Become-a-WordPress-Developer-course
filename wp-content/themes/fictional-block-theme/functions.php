@@ -251,3 +251,24 @@ new PlaceholderBlock("search");
 new PlaceholderBlock("searchform");
 new PlaceholderBlock("singlecampus");
 new PlaceholderBlock("singleevent");
+
+// Restrict blocks in Edit vs. FSE screens.
+/*
+function myallowedblocks($allowed_block_types, $editor_context) {
+
+  // If you are on a profesor edit screen
+  if ( $editor_context->post->post_type == "professor" ) {
+    return array('core/paragraph', 'core/list');
+  }
+
+  // If you are on a page/post editor screen.
+  if (!empty($editor_context->post)) {
+    return $allowed_block_types;
+  }
+
+  // If you are on the FSE screen.
+  return array('ourblocktheme/header', 'ourblocktheme/footer');
+
+}
+add_filter('allowed_block_types_all', 'myallowedblocks', 10, 2);
+*/
