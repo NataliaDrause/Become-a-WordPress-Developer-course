@@ -41,7 +41,24 @@ while(have_posts()) {
     <?php } ?>
 
     <div class="generic-content">
-      <?php the_content(); ?>
+      <?php the_content(); 
+
+      // Add custom query vars logic with form.
+
+      $skyColorValue = sanitize_text_field(get_query_var('skyColor'));
+      $grassColorValue = sanitize_text_field(get_query_var('grassColor'));
+      
+      if ( $skyColorValue == 'blue' AND $grassColorValue == 'green' ) {
+        echo '<p>Sky is blue today and the grass is green.</p>';
+      }
+
+      ?>
+      <form method="get">
+        <input name="skyColor" placeholder="Sky Color">
+        <input name="grassColor" placeholder="Grass Color">
+        <button>Submit</button>
+      </form>
+
     </div>
   </div>
   <?php
